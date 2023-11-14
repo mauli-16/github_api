@@ -266,7 +266,7 @@ const Header = () => {
       </div>
     </div>
     </div>):(
-      <div>data not available</div>
+      <div></div>
     )}
         <div>
         <h3>Followers Info:</h3>
