@@ -3,6 +3,7 @@ import './Header.css'
 
 const Header = () => {
   let HTML=0,CSS=0,JavaScript=0,C=0,CPP=0,Python=0,MDX=0,Astro=0,Shell=0,SCSS=0,Rust=0,TypeScript=0,Java=0,Jupyter=0,EJS=0;
+  
 
   const [name,setName]=useState('');
   const [userName,setUserName]=useState('');
@@ -29,7 +30,7 @@ const Header = () => {
     let url1=`https://api.github.com/users/${userInput}`; 
     try{
        const response=await fetch(url1,{headers:{
-        Authorization:`Bearer  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`
+        Authorization:`Bearer  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`
        },});
        const items=await response.json();
        console.log(items);
@@ -138,12 +139,12 @@ const Header = () => {
 
       }
       const total=HTML+CSS+Java+JavaScript+C+CPP+Python+MDX+Astro+Shell+SCSS+Rust+TypeScript;
-      const hper=(HTML/total)*100;
-      const cssper=(CSS/total)*100;
-      const jper=(Java/total)*100;
-      const jsper=(JavaScript/total)*100;
-      const cper=(C/total)*100;
-      const cppper=(CPP/total)*100;
+       const hper=(HTML/total)*100;
+       const cssper=(CSS/total)*100;
+       const jper=(Java/total)*100;
+       const jsper=(JavaScript/total)*100;
+       const cper=(C/total)*100;
+       const cppper=(CPP/total)*100;
       const pper=(Python/total)*100;
       const mper=(MDX/total)*100;
       const aper=(Astro/total)*100;
@@ -229,7 +230,7 @@ const Header = () => {
     </form>
     <br />
     <button onClick={fetchi}>Search</button>
-
+    <br />
     {loading ?(
       <div className="loader"></div>
     ): name ?(
@@ -269,13 +270,18 @@ const Header = () => {
       <div></div>
     )}
         <div>
-        <h3>Followers Info:</h3>
+        <h3></h3>
         {followersInfo.map((follower, index) => (
           <div key={index}>
-            <p>User: {follower.user}</p>
-            <img src={follower.avt} alt={`avatar-${index}`} />
+            <p className='followerName'>User: {follower.user}</p>
+            <img className="followerImg"src={follower.avt} alt={`avatar-${index}`} />
           </div>
         ))}
+      </div>
+      <div>
+      
+      
+      
       </div>
     
   
