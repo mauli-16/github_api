@@ -1,0 +1,85 @@
+.head{
+    color: white;
+    font-size: 7rem;
+}
+.content{
+    color: white;
+    font-size: 2em;
+    font-style: italic;
+}
+.form{
+    font-size: 10em;
+}
+
+.slideContainer{
+    position:relative;
+    left:30%;
+ }
+ .cardImage{
+    position: relative;
+    left:35%;                           
+    
+    height:150px;
+    width:150px;
+    
+    border-radius: 50%;
+    background: white;
+    padding:3px;
+ }
+ .cardImage .cardImg{
+    height:100%;
+    width:100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #4070F4;
+ }
+ .card{
+    width:20em;
+    border-radius: 25px;
+    background-color:#4070F4 ;
+
+ }
+ 
+ .imageContent,.cardContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #FFF;
+    border-radius: 25px;
+ } */
+ /* /* .slide-content{
+    margin:  0 px 40px;
+ } */
+ .name{
+    font-size: 40px;
+    /* font-weight: 500; */
+    color: #333;
+ }
+  .description{
+    font-size: 14px;
+    color: black;
+    text-align: center;
+ }
+ .imageContent{
+    position: relative;
+    row-gap: 5px;
+
+ }
+ /* Header.css */
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
