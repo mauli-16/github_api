@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './Pagination.css'
 const Pagination = ({totalPosts,postPerPage,setCurrentPage,updatedFollowersInfo}) => {
     console.log(updatedFollowersInfo);
     console.log('hi');
@@ -12,7 +12,7 @@ const Pagination = ({totalPosts,postPerPage,setCurrentPage,updatedFollowersInfo}
   return (
     <div className='pagi'>
         {pages.map((page,index)=>{
-            return <button key={index} onClick={()=>{setCurrentPage(page) ;
+            return <button  className="page" key={index} onClick={()=>{setCurrentPage(page) ;
                 console.log('Page changed to:', page)}}>
                     {page}
                     </button>

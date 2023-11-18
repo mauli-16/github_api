@@ -1,12 +1,19 @@
 .head{
-    color: white;
+    color:white;
     font-size: 7rem;
+    margin-top: 0%;
+    /* display: flex; */
+    /* align-items: center;
+    justify-content: center; */
 }
 .content{
     color: white;
     font-size: 1.5em;
     font-style: italic;
     margin-top: -2%;
+    /* align-items: center;
+    justify-content: center; */
+    text-align: center;
 }
 
 .slideContainer{
@@ -18,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top:2%;
+    margin-top:20%;
  }
 
  .cardImage{
@@ -60,6 +67,8 @@
  }
  .input1{
    font-size: 1.1em;
+   align-items: center;
+   justify-content: center;
    
  }
 
@@ -96,26 +105,45 @@
  .followerImg{
     height:50px;
  }
+ .followerName{
+   color: ;
+ }
  
 
  .followerrow{
    display: flex;
-  flex-wrap: wrap;
+   flex-direction: row;
+  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
-  background-color:#4070F4;
-  border-radius: 30px;
-   
+  background-color:hsl(224, 89%, 60%);
+  border-radius: 25px;
+  width:100%;
+  margin-left: 0%;
+  margin-right: 20%;
+  margin-top: 1%;
  }
  .follower{
-   width: 10%;
+   width: 40%;
    margin-bottom: 1%;
    text-align: center;
    background-color: #FFF;
    border-radius: 25px;
    margin-left: 1%;
    margin-top: 1%;
+   margin: 1.5%;
    
+ }
+ .repoName{
+   font-weight: bold;
+ }
+ .list{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #FFF;
+   text-decoration: underline;
+   font-weight: bold;
  }
  .all{
    display: flex;
@@ -150,3 +178,50 @@
     100% { transform: rotate(360deg); }
   }
   
+  /* Header.css */
+
+/* Your existing styles */
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+   head {
+      font-size: 24px;
+      /* display: flex; */
+      /* align-items: center;
+      justify-content: center; */
+       /* Adjust font size for smaller screens */
+      /* Add more responsive styles as needed */
+    }
+  
+    .content {
+      font-size: 16px;
+      align-items: center;
+      justify-content: center; /* Adjust font size for smaller screens */
+      /* Add more responsive styles as needed */
+      text-align: center;
+    }
+    .input1{
+      align-items: center;
+      justify-content: center;
+    }
+  
+   
+ 
+   .followerrow {
+     /* Adjust styles for follower row on smaller screens */
+     display: flex;
+     flex-wrap: wrap;
+ 
+     .follower {
+       width: 100%;
+     }
+   }
+ 
+   .pagination {
+     /* Adjust pagination styles for smaller screens */
+     text-align: center;
+   }
+ 
+   /* Add more responsive styles as needed */
+ }
+ 

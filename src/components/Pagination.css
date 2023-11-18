@@ -1,0 +1,8 @@
+.page{
+    margin: 0.5%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.page:hover{
+    background-color: blue;
+}

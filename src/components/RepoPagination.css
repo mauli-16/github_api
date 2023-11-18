@@ -1,0 +1,8 @@
+.star{
+    margin: 0.5%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.star:hover{
+    background-color: blue;
+}

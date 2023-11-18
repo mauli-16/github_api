@@ -1,4 +1,5 @@
 import React from 'react'
+import './RepoPagination.css'
 
 const RepoPagination = ({totalRepos,postPerPage,setStarPage}) => {
     let starredRepos=[];
@@ -8,7 +9,7 @@ const RepoPagination = ({totalRepos,postPerPage,setStarPage}) => {
   return (
     <div className='pagi'>
     {starredRepos.map((star,index)=>{
-        return <button key={index} onClick={()=>{setStarPage(star) ;
+        return <button className='star' key={index} onClick={()=>{setStarPage(star) ;
             console.log('Page changed to:', star)}}>
                 {star}
                 </button>

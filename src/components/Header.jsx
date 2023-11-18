@@ -59,7 +59,7 @@ const Header = () => {
     let url1=`https://api.github.com/users/${userInput}`; 
     try{
        const response=await fetch(url1,{headers:{
-        Authorization:`Bearer  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`
+        Authorization:`Bearer  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`
        },});
        const items=await response.json();
        console.log(items);
@@ -330,6 +330,11 @@ const Header = () => {
   
   
   let social=`https://twitter.com/${twitter}`;
+  let media=false;
+  if (twitter!=null){
+    media=true;
+    
+  }
   
 
   
@@ -337,7 +342,7 @@ const Header = () => {
   return (
   <>
     <div className='head'>GITSEARCH</div>
-    <p className='content'>Check out user details just by entering username !</p>
+    <div className='content'>Check out user details just by entering username !</div>
     {/* <img src={avatar} alt="" />
     <h3>{name}</h3>
     <h3>{userName}</h3>
@@ -379,9 +384,11 @@ const Header = () => {
                   <br />
                   <div className="description">PUBLIC GISTS: {publicg}</div>
                   <br />
+                  {media?(<a   target="_blank" className="description" href={social}>TWITTER ACCOUNT</a>):'TWITTER ACCOUNT:NA'}
                   
-                  <a   target="_blank" className="description" href={social}>twitter account</a>
-                  <div className="description">{social}</div>
+                  
+                  
+                  
                   <div className="description">{name1}</div>
 
                   <div className="description">{avatar1}</div>
@@ -403,11 +410,12 @@ const Header = () => {
           
           
       <div className='followerrow'>
-        
+        <p className='list'>FOLLOWER LIST</p>
     {currentPost.map((follower, index) => (
       
       <div key={index} className='follower'>
-        <p className='followerName'>User: <br/>{follower.user}</p>
+
+        <p className='followerName'><span className='repoName'>User:</span> <br/>{follower.user}</p>
         <img className="followerImg" src={follower.avt} alt={`avatar-${index}`} />
       </div>
     ))}
@@ -424,15 +432,17 @@ const Header = () => {
               updatedFollowersInfo={updatedFollowersInfo}
             />
     <div className='followerrow'>
+    <p className='list'>STARRED REPOS</p>
         
         {currentRepo.map((repo, index) => (
           
           <div key={index} className='follower'>
-            <p className='followerName'>User: <br/>{repo.reponame}</p>
-            <p className='followerName'>User: <br/>{repo.repoOwner}</p>
+            <p className='followerName'><span className='repoName'>Repo Name:</span> <br/>{repo.reponame}</p>
+            <p className='followerName'><span className='repoName'>Repo Name:</span> <br/>{repo.repoOwner}</p>
             
           </div>
         ))}
+        
         </div>
         <RepoPagination
               totalRepos={totalRepos}
