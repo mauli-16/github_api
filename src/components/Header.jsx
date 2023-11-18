@@ -1,10 +1,15 @@
 import React, { useEffect,useState } from 'react'
 import './Header.css'
+// import './pagination'
+import Pagination from './pagination';
+import RepoPagination from './RepoPagination';
 
 const Header = () => {
   let HTML=0,CSS=0,JavaScript=0,C=0,CPP=0,Python=0,MDX=0,Astro=0,Shell=0,SCSS=0,Rust=0,TypeScript=0,Java=0,Jupyter=0,EJS=0;
   
-
+  const [starPage, setStarPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage,setPostPerPage]= useState(5)
   const [name,setName]=useState('');
   const [userName,setUserName]=useState('');
   const [followers,setFollowers]=useState('');
@@ -19,18 +24,42 @@ const Header = () => {
   const [name1,setName1]=useState('');
   const [avatar1,setAvatar1]=useState('');
   const [followersInfo, setFollowersInfo] = useState([]);
+  const [latestFollowers, setLatestFollowers] = useState([]);
+  const [updatedFollowersInfo, setUpdatedFollowersInfo] = useState([]);
+  const [cssper,setCssper]=useState(0);
+  const per=[];
+  const [topLanguages, setTopLanguages] = useState([]);
+  const [currentPost, setCurrentPost] = useState([]);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [totalRepos,setTotalRepos]= useState(0);
+  const [currentRepo,setCurrentRepo]=useState([]);
+  const [starredRepos,setUpdatedRepo]=useState([]);
+  const [twitter,setTwitter]=useState('');
+
+
+
+  // const [starredRepos, setStarredRepos]=useState('');
   
   const handleSearch=(e)=>{
     setUserInput(e.target.value);
 
   }
+  const handleSeeMoreFollowers = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const lastPostIndex= currentPage* postPerPage;
+  const firstPostIndex= lastPostIndex-postPerPage;
+ 
+  const last=starPage* postPerPage;
+  const first=last-postPerPage;
 
   const fetchi=async()=>{
     setLoading(true)
     let url1=`https://api.github.com/users/${userInput}`; 
     try{
        const response=await fetch(url1,{headers:{
-        Authorization:`Bearer  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`
+        Authorization:`Bearer  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`
        },});
        const items=await response.json();
        console.log(items);
@@ -43,7 +72,32 @@ const Header = () => {
         user: item.login,
         avt: item.avatar_url,
       }));
+      const currentPost=updatedFollowersInfo.slice(firstPostIndex,lastPostIndex);
+      console.log('Total Posts:', updatedFollowersInfo.length);
+      setTotalPosts(updatedFollowersInfo.length);
+      console.log('After setting Total Posts:', totalPosts);
+      setCurrentPost(currentPost);
+      console.log(currentPost);
       setFollowersInfo(updatedFollowersInfo);
+      setUpdatedFollowersInfo(updatedFollowersInfo)
+      // setLatestFollowers(updatedFollowersInfo);
+
+      
+
+      const starredResponse=await fetch(`https://api.github.com/users/${userInput}/starred`);
+      const starredData= await starredResponse.json();
+      const starredRepos = starredData.map((item) => ({
+        reponame:item.name,
+        repoOwner:item.owner.login
+      }));
+      console.log(starredRepos);
+      const currentRepo=starredRepos.slice(first,last);
+      setTotalRepos(starredRepos.length);
+      setCurrentRepo(currentRepo)
+      setUpdatedRepo(starredRepos)
+
+
+      
 
       const language = await fetch(items.repos_url);
       const lang = await language.json();
@@ -139,12 +193,13 @@ const Header = () => {
 
       }
       const total=HTML+CSS+Java+JavaScript+C+CPP+Python+MDX+Astro+Shell+SCSS+Rust+TypeScript;
-       const hper=(HTML/total)*100;
-       const cssper=(CSS/total)*100;
-       const jper=(Java/total)*100;
-       const jsper=(JavaScript/total)*100;
-       const cper=(C/total)*100;
-       const cppper=(CPP/total)*100;
+      
+      const hper=(HTML/total)*100;
+      const cssper=(CSS/total)*100;
+      const jper=(Java/total)*100;
+      const jsper=(JavaScript/total)*100;
+      const cper=(C/total)*100;
+      const cppper=(CPP/total)*100;
       const pper=(Python/total)*100;
       const mper=(MDX/total)*100;
       const aper=(Astro/total)*100;
@@ -152,16 +207,42 @@ const Header = () => {
       const scssper=(SCSS/total)*100;
       const rper=(Rust/total)*100;
       const tper=(TypeScript/total)*100;
-      console.log("htotal=",HTML);
-      console.log("total=",total);
-      console.log(hper);
-      console.log(cssper);
-      console.log(jsper);
-      console.log(scssper);
-      console.log(sper);
-      console.log(mper);
-      console.log(tper);
-      console.log(rper);
+      const juper=(Jupyter/total)*100;
+      const ejsper=(EJS/total)*100;
+
+      const languages=[
+        {name:'HTML',percentage:hper},
+        {name:'CSS',percentage:cssper},
+        {name:'Java',percentage:jper},
+        {name:'JavaScript',percentage:jsper},
+        {name:'C',percentage:cper},
+        {name:'C++',percentage:cppper},
+        {name:'Python',percentage:pper},
+        {name:'MDX',percentage:mper},
+        {name:'Astro',percentage:aper},
+        {name:'Shell',percentage:sper},
+        {name:'SCSS',percentage:scssper},
+        {name:'Rust',percentage:rper},
+        {name:'TypeScript',percentage:tper},
+        {name:'Jupyter',percentage:juper},
+        {name:'EJS',percentage:ejsper}
+      ];
+
+      const sortedLanguages = languages.sort((a, b) => b.percentage - a.percentage);
+      setTopLanguages(sortedLanguages.slice(0, 3));
+      // setCssper(cssper);
+      // per.push(hper,cssper,jper,jsper,cper,cppper,pper,mper,aper,sper,scssper,rper,tper,juper,ejsper);
+      // console.log(per);
+      // console.log("htotal=",HTML);
+      // console.log("total=",total);
+      // console.log(hper);
+      // console.log(cssper);
+      // console.log(jsper);
+      // console.log(scssper);
+      // console.log(sper);
+      // console.log(mper);
+      // console.log(tper);
+      // console.log(rper);
       
     
       
@@ -180,6 +261,10 @@ const Header = () => {
    
 
   }
+  
+  
+
+
   
   // const hper=(HTML/total)*100;
   // const cssper=(CSS/total)*100;
@@ -200,7 +285,7 @@ const Header = () => {
 
 
 
-  const setData=({name,login,followers,following,avatar_url,bio,location,public_repos,public_gists})=>{
+  const setData=({name,login,followers,following,avatar_url,bio,location,public_repos,public_gists,twitter_username})=>{
     setName(name);
     setUserName(login);
     setFollowers(followers);
@@ -210,9 +295,43 @@ const Header = () => {
     setLocation(location)
     setPublicr(public_repos)
     setPublicg(public_gists)
+    setTwitter(twitter_username)
+    setLatestFollowers(updatedFollowersInfo.slice(0, 10));
     
 
   }
+  useEffect(() => {
+    console.log('Header component re-rendered with currentPage:', currentPage);
+    // ... (rest of the useEffect logic)
+    
+    console.log('Total Posts:', totalPosts);
+  console.log('First Post Index:', firstPostIndex);
+  console.log('Last Post Index:', lastPostIndex);
+  console.log('Updated Followers Info:', updatedFollowersInfo);
+    
+    const currentPost=updatedFollowersInfo.slice(firstPostIndex,lastPostIndex);
+    setCurrentPost(currentPost)
+    console.log(currentPost);
+    
+  }, [currentPage]);
+
+  useEffect(() => {
+    console.log('Header component re-rendered with starpage:', starPage);
+    // ... (rest of the useEffect logic)
+    
+    
+  
+    
+    const currentRepo=starredRepos.slice(first,last);
+    setCurrentRepo(currentRepo)
+    console.log(currentRepo);
+    
+  }, [starPage]);
+  
+  
+  let social=`https://twitter.com/${twitter}`;
+  
+
   
 
   return (
@@ -226,63 +345,126 @@ const Header = () => {
     <h3>{following}</h3> */}
     
     <form action="">
-      <input type="text" placeholder='name' onChange={handleSearch} />
+      <input className='input1' type="text" placeholder='username' onChange={handleSearch} />
     </form>
     <br />
-    <button onClick={fetchi}>Search</button>
+    <button className='btn' onClick={fetchi}>Search</button>
     <br />
     {loading ?(
       <div className="loader"></div>
     ): name ?(
-    <div className='slideContent'>
-    <div className="slideWrapper">
-      <div className="card">
-        <div className="imageContent">
-          <div className="cardImage">
-            <img  className="cardImg"src={avatar} alt="" />
+    <><div className='slideContent'>
+            <div className="slideWrapper">
+              <div className="card">
+                <div className="imageContent">
+                  <div className="cardImage">
+                    <img className="cardImg" src={avatar} alt="" />
+                  </div>
+                </div>
+                <div className="cardContent">
+                  <h2 className='name'>NAME: {name}</h2>
+                  <br />
+
+                  <div className="description">USERNAME: {userName}</div>
+                  <br />
+                  <div className="description">FOLLOWERS: {followers}</div>
+                  <br />
+                  <div className="description">FOLLOWING: {following}</div>
+                  <br />
+                  <div className="description">BIO: {bio}</div>
+                  <br />
+                  <div className="description">LOCATION: {location}</div>
+                  <br />
+                  <div className="description">PUBLIC REPOS: {publicr}</div>
+                  <br />
+                  <div className="description">PUBLIC GISTS: {publicg}</div>
+                  <br />
+                  
+                  <a   target="_blank" className="description" href={social}>twitter account</a>
+                  <div className="description">{social}</div>
+                  <div className="description">{name1}</div>
+
+                  <div className="description">{avatar1}</div>
+                  <br />
+                  <div className='description'>
+                    TOP THREE LANGUAGES:
+                    <br />
+                    {topLanguages.map((language, index) => (
+                      <div key={index}>
+                        {`${index + 1}. ${language.name}: ${language.percentage.toFixed(2)}%`}
+                        <br />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="cardContent">
-          <h2 className='name'>{name}</h2>
-          <br />
-          <div className="description">{userName}</div>
-          <br />
-          <div className="description">{followers}</div>
-          <br />
-          <div className="description">{following}</div>
-          <br />
-          <div className="description">{bio}</div>
-          <br />
-          <div className="description">{location}</div>
-          <br />
-          <div className="description">{publicr}</div>
-          <br />
-          <div className="description">{publicg}</div>
-          <br />
-          <div className="description">{name1}</div>
-          <br />
-          <div className="description">{avatar1}</div>
-          <br />
-        </div>
+          
+          
+      <div className='followerrow'>
+        
+    {currentPost.map((follower, index) => (
+      
+      <div key={index} className='follower'>
+        <p className='followerName'>User: <br/>{follower.user}</p>
+        <img className="followerImg" src={follower.avt} alt={`avatar-${index}`} />
       </div>
+    ))}
     </div>
-    </div>):(
-      <div></div>
-    )}
-        <div>
+    
+    
+    
+  
+      
+            <Pagination
+              totalPosts={totalPosts}
+              postPerPage={postPerPage}
+              setCurrentPage={setCurrentPage}
+              updatedFollowersInfo={updatedFollowersInfo}
+            />
+    <div className='followerrow'>
+        
+        {currentRepo.map((repo, index) => (
+          
+          <div key={index} className='follower'>
+            <p className='followerName'>User: <br/>{repo.reponame}</p>
+            <p className='followerName'>User: <br/>{repo.repoOwner}</p>
+            
+          </div>
+        ))}
+        </div>
+        <RepoPagination
+              totalRepos={totalRepos}
+              postPerPage={postPerPage}
+              setStarPage={setStarPage}
+              starredRepos={starredRepos}
+        />
+          
+    
+    
+    
+    
+
+    </>
+
+
+      
+    ):'User not found'}
+        {/* <div>
         <h3></h3>
+        <div className='followerrow'>
         {followersInfo.map((follower, index) => (
-          <div key={index}>
-            <p className='followerName'>User: {follower.user}</p>
+          <div key={index} className='follower'>
+            <p className='followerName'>User: <br/>{follower.user}</p>
             <img className="followerImg"src={follower.avt} alt={`avatar-${index}`} />
           </div>
         ))}
-      </div>
-      <div>
-      
-      
-      
-      </div>
+        <button className='all'>See all followers</button>
+        </div>
+        
+      </div> */}
+
     
   
   </>
