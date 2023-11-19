@@ -4,6 +4,8 @@ import './Header.css'
 import Pagination from './Pagination.jsx';
 import RepoPagination from './RepoPagination.jsx';
 
+
+
 const Header = () => {
   let HTML=0,CSS=0,JavaScript=0,C=0,CPP=0,Python=0,MDX=0,Astro=0,Shell=0,SCSS=0,Rust=0,TypeScript=0,Java=0,Jupyter=0,EJS=0;
   
@@ -59,7 +61,10 @@ const Header = () => {
     let url1=`https://api.github.com/users/${userInput}`; 
     try{
        const response=await fetch(url1,{headers:{
-        Authorization:`Bearer  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`,
+        
+        
+        // Authorization:`Bearer  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`,
+        Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_GITHUB_TOKEN}`,
         'Content-Type': 'application/json',
        },});
        const items=await response.json();
