@@ -59,7 +59,8 @@ const Header = () => {
     let url1=`https://api.github.com/users/${userInput}`; 
     try{
        const response=await fetch(url1,{headers:{
-        Authorization:`Bearer  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`
+        Authorization:`Bearer  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`,
+        'Content-Type': 'application/json',
        },});
        const items=await response.json();
        console.log(items);
