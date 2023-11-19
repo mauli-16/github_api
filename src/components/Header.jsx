@@ -1,8 +1,8 @@
 import React, { useEffect,useState } from 'react'
 import './Header.css'
 // import './pagination'
-import Pagination from './pagination';
-import RepoPagination from './RepoPagination';
+import Pagination from './Pagination.jsx';
+import RepoPagination from './RepoPagination.jsx';
 
 const Header = () => {
   let HTML=0,CSS=0,JavaScript=0,C=0,CPP=0,Python=0,MDX=0,Astro=0,Shell=0,SCSS=0,Rust=0,TypeScript=0,Java=0,Jupyter=0,EJS=0;
