@@ -67,6 +67,7 @@ const Header = () => {
         Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_GITHUB_TOKEN}`,
         'Content-Type': 'application/json',
        },});
+    
        const items=await response.json();
        console.log(items);
        setData(items);
